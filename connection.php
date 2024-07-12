@@ -1,14 +1,14 @@
 <?php
-    
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "sallao_db";
 
-    $conn = mysqli_connect ($servername, $username, $password, $dbname);
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "takozaki";
 
-    if($conn->connect_error){
-        die("byeee" . $conn->connect_error);
-    }
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("byeee" . $conn->connect_error);
+}
 
 ?>
