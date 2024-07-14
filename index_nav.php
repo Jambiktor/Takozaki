@@ -12,7 +12,7 @@ include ('header.php');
 </head>
 
 <body>
-    <nav class="nav py-2 px-2 d-flex align-items-center" style="background-color: #333333;">
+    <nav class="nav py-2 px-2 d-flex align-items-center shadow" style="background-color: #333333;">
 
         <!-- <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#nav_option"
             aria-controls="offcanvasTop">
