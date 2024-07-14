@@ -100,32 +100,37 @@ include ('header.php');
                 <div class="rounded border border-secondary mb-2 p-2 d-flex justify-content-center ">
                     <h5 class="m-0">Order</h5>
                 </div>
-                <div class="rounded border border-secondary d-flex justify-content-center align-items-center"
+                <div id="list-example"
+                    class="list-group rounded border border-secondary d-flex justify-content-center align-items-center"
                     style="height: 35vw;">
-                    <p class="m-0" style="color: gray;"> No orders. Click <a href=""
-                            style="text-decoration: none;">here</a> to view our products.
+                    <p class="m-0 list-group-item border-0" style="color: gray;"> No orders. Click <a class=""
+                            href="#products" style="text-decoration: none;">here</a> to view our products.
                     </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="p-3 mt-4 ps-5" style="background-color: ;">
-        <div class="d-flex align-items-center justify-content-center mt-3 mb-2">
-            <h1>Products</h1>
-        </div>
-        <div class="d-flex align-items-center justify-content-start flex-wrap gap-3">
-            <div class="card rounded shadow p-0 border-0" style="width: 24%; transition: .3s;">
-                <a href="" style="text-decoration: none; color: black;">
-                    <img src="images\14.png" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Product Name</h5>
-                        <p class="card-text">₱ 00.00</p>
-                    </div>
-                </a>
+    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example p-3 mt-4 ps-5"
+        tabindex="0" style="background-color: ;">
+        <div id="products">
+            <div class="d-flex align-items-center justify-content-center mt-3 mb-2">
+                <h1>Products</h1>
+            </div>
+            <div class="d-flex align-items-center justify-content-start flex-wrap gap-3">
+                <div class="card rounded shadow p-0 border-0" style="width: 24%; transition: .3s;">
+                    <a href="" style="text-decoration: none; color: black;">
+                        <img src="images\14.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Product Name</h5>
+                            <p class="card-text">₱ 00.00</p>
+                        </div>
+                    </a>
 
+                </div>
             </div>
         </div>
+
 
     </div>
 
