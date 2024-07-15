@@ -24,7 +24,7 @@ include ('header.php');
         style="height: 100vh; position: relative; z-index: 1; overflow: hidden;">
         <div class="position-absolute" style="z-index: -1; width: 100vw; height: 100vh;">
             <div class="position-absolute"
-                style="background-image: linear-gradient(to right,rgb(26, 26, 26, .95) 30%, rgb(38, 38, 38, .80) 55%, rgb(51, 51, 51, .40)); width: 100%; height: 100%;">
+                style="background-image: linear-gradient(to right,rgb(26, 26, 26, .99) 30%, rgb(38, 38, 38, .90) 55%, rgb(51, 51, 51, .85)); width: 100%; height: 100%;">
             </div>
             <img class="position-absolute" src="../images/main background.jpg" alt=""
                 style=" z-index: -1; right: -205px; top: -10px;">

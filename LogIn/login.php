@@ -1,15 +1,15 @@
 <?php
-include ('connection.php');
+include ('../connection.php');
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $uname = $_POST['username'];
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
     // Prepare SQL query to prevent SQL injection
-    $sql = "SELECT * FROM usertable WHERE uname=?";
+    $sql = "SELECT * FROM usertable WHERE username=?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $uname);
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -18,30 +18,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $hashed_password = $row['password'];
 
         if (password_verify($password, $hashed_password)) {
-            $_SESSION["uname"] = $uname;
-            $_SESSION["id"] = $row['id'];
+            $_SESSION["username"] = $username;
+            $_SESSION["user_id"] = $row['user_id'];
 
-            if ($row['is_admin'] == 1) {
-                header('Location: admin.php');
+            if ($row['admin'] == 1) {
+                echo '<script type="text/javascript">
+                alert("Welcome to Takozaki Admin ' . $row['username'] . '");
+                window.location = "../Admin/admin.php";
+                </script>';
                 exit();
             } else {
                 echo '<script type="text/javascript">
-                alert("Welcome");
-                window.location = "user_homepage.php";
+                alert("Welcome to Takozaki ' . $row['username'] . '");
+                window.location = "../User/user_homepage.php";
                 </script>';
                 exit();
             }
         } else {
             echo '<script type="text/javascript">
             alert("Invalid password");
-            window.location = "index.php";
+            window.location = "login-form.php";
             </script>';
             exit();
         }
     } else {
         echo '<script type="text/javascript">
         alert("Invalid username or password");
-        window.location = "index.php";
+        window.location = "login-form.php";
         </script>';
         exit();
     }

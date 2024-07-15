@@ -1,6 +1,6 @@
 <?php
-include ('connection.php');
-include ('sessioncheck.php');
+include ('..\connection.php');
+include ('..\LogIn\session.php');
 include ('header.php');
 ?>
 
@@ -11,155 +11,190 @@ include ('header.php');
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css\admin6.css" />
+    <!-- <link rel="stylesheet" href="css\admin6.css" /> -->
+    <style>
+        body {
+            background-color: lightgray !important;
+            position: relative;
+        }
 
+        .background_image {
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("../images/backgroundpattern.jpg");
+            background-repeat: repeat;
+            opacity: .02;
+        }
+
+        .promo_details {
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .promo_details:hover {
+            opacity: 1;
+        }
+    </style>
 </head>
 
 <body>
-    <?php
-    $sql = "SELECT * FROM usertable WHERE uname='" . $_SESSION['uname'] . "'";
-    $result = $conn->query($sql);
+    <div class="background_image"></div>
 
-    while ($row = $result->fetch_assoc()) {
-        ?>
+    <!-- modal body  -->
 
-
-        <nav class="nav_bar">
-
-            <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
-                aria-controls="offcanvasTop">
-                <div class="logo_toggler"><i class='bx bx-menu'></i><img src="images\blacklogo.jpeg" alt=""></div>
-            </button>
-
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-                <div class="offcanvas-header">
-                    <h5 id="offcanvasTopLabel">Takozaki<img src="images\blacklogo.jpeg" alt=""></h5>
-                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
+    <!-- managing promo  -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Promo</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="offcanvas-body">
-                    <div class="tab">
-                        <a href="admin.php">Home</a>
-                        <a href="admin_about_us.php">About</a>
-                        <a href="admin_product.php">Products</a>
-                        <a href="admin_pendings_order.php">Orders</a>
-                        <a href="admin_report.php">Report</a>
-                        <a href="user_table.php">Users</a>
-                        <a href="contact.php">Contact us</a>
+                <div class="modal-body d-flex flex-wrap gap-2">
+                    <div class="card position-relative" style="width: 14rem;">
+                        <div class="w-100 position-absolute">
+                            <div class=" p-2 d-flex justify-content-end gap-1">
+                                <button class="btn btn-light p-0 px-2">
+                                    <p class="m-0">Edit details</p>
+                                </button>
+                                <button class=" btn btn-danger p-0 px-2 shadow-md" style="">
+                                    <p class="m-0 mb-1">x</p>
+                                </button>
+                            </div>
+                        </div>
+                        <img src="..\images\promo1.png" class="card-img-top" alt="...">
+                        <div class="card-body d-flex justify-content-center p-0 pt-1">
+                            <h5 class="card-title">Promo Title</h5>
+                        </div>
+                    </div>
+                    <div class="card position-relative" style="width: 14rem;">
+                        <div class="w-100 position-absolute">
+                            <div class=" p-2 d-flex justify-content-end gap-1">
+                                <button class="btn btn-light p-0 px-2">
+                                    <p class="m-0">Edit details</p>
+                                </button>
+                                <button class=" btn btn-danger p-0 px-2 shadow-md" style="">
+                                    <p class="m-0 mb-1">x</p>
+                                </button>
+                            </div>
+                        </div>
+                        <img src="..\images\promo1.png" class="card-img-top" alt="...">
+                        <div class="card-body d-flex justify-content-center p-0 pt-1">
+                            <h5 class="card-title">Promo Title</h5>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="right_body">
-
-                <div class="user_tab">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="user">
-                                <div class="user_name">
-                                    <p> <?php echo $_SESSION['uname'] ?> </p>
-                                </div>
-                                <div class="user_photo">
-                                    <img src="profile_picture/<?php echo $row['image_file'] ?>" alt="">
-                                </div>
-                            </div>
-                        </button>
-                        <ul id="dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <div class="dropdown_container">
-                                <li>
-                                    <form action="profile.php" method="post"><button>Profile</button></form>
-                                </li>
-                                <li>
-                                    <form action="logout.php" method="post"><button type="submit"
-                                            name="logout">Logout</button></form>
-                                </li>
-                            </div>
-                        </ul>
-                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
-        </nav>
-    <?php } ?>
-
-
-
-    <div class="intro">
-        <div class="bg_box">
-            <div class="intro_img">
-                <img src="images/bg1.jpg" alt="">
-            </div>
-            <h1 class="welcome">WELCOME TO TAKOZAKI!</h1>
         </div>
     </div>
-
+    <?php
+    include ('admin_nav.php');
+    ?>
     <div class="main_body">
 
-        <div class="promo">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
+        <div class="row w-100 px-5 mt-5 d-flex align-items-end justify-content-center gap-5 "
+            style="background-color: ;">
+            <div class="col-md-5 p-0 position-relative d-flex align-items-center justify-content-center flex-column">
+                <div class="w-100 pt-2 ps-2 position-absolute d-flex justify-content-start align-items-start gap-1"
+                    style="z-index: 1; top: 0; margin-right: 5px;">
+                    <div class="rounded" style="background-color: white;">
+                        <h4 class="fw-bold my-1 mx-2" style="color: ;">Promos</h4>
+                    </div>
+                    <div class="rounded" style="background-color: white;">
+                        <button class="btn p-0 pb-1 " data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <p class="m-0 my-1 mx-2" style="color: ;">Manage Promos</p>
+                        </button>
+                    </div>
+
                 </div>
-                <div class="carousel-inner" data-bs-interval="3000">
-                    <div class="carousel-item active">
-                        <img src="images\11.png" class="d-block w-100" alt="...">
+                <div id="carouselExampleInterval" class="carousel slide rounded overflow-hidden shadow"
+                    data-bs-ride="carousel" style="width: ;">
+                    <div class="carousel-inner position-relative" style="height: 100%;">
+
+                        <div class="carousel-item active" data-bs-interval="3000">
+                            <div class="promo_details position-absolute d-flex align-items-end justify-content-center pb-5"
+                                style="height: 100%; width: 100%; background-image: linear-gradient(to top, rgba(38, 38, 38, 0.70) 55%, rgba(51, 51, 51, 0.40));">
+                                <a href="#" style="text-decoration: none; color: white;">
+                                    <h5>Click to view details.</h5>
+                                </a>
+                            </div>
+                            <img src="..\images\promo1.png" class="d-block w-100" alt="..." style="width: 100%;">
+                        </div>
+
+                        <div class="carousel-item" data-bs-interval="3000">
+                            <div class="promo_details position-absolute d-flex align-items-end justify-content-center pb-4"
+                                style="height: 100%; width: 100%; background-image: linear-gradient(to top, rgba(38, 38, 38, 0.70) 55%, rgba(51, 51, 51, 0.40));">
+                                <a href="#" style="text-decoration: none; color: white;">Click to view details.</a>
+                            </div>
+                            <img src="..\images\promo2.png" class="d-block w-100" alt="..." style="width: 100%;">
+                        </div>
+
+                        <div class="carousel-item" data-bs-interval="3000">
+                            <div class="promo_details position-absolute d-flex align-items-end justify-content-center pb-4"
+                                style="height: 100%; width: 100%; background-image: linear-gradient(to top, rgba(38, 38, 38, 0.70) 55%, rgba(51, 51, 51, 0.40));">
+                                <a href="#" style="text-decoration: none; color: white;">Click to view details.</a>
+                            </div>
+                            <img src="..\images\promo3.png" class="d-block w-100" alt="..." style="width: 100%;">
+                        </div>
                     </div>
-                    <div class="carousel-item" data-bs-interval="3000">
-                        <img src="images\bg2.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="3000">
-                        <img src="images\14.png" class="d-block w-100" alt="...">
-                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
+            </div>
+
+            <div class="col-md-6 rounded p-2 shadow-sm" style="background-color: white; width:; height:;">
+                <div class="rounded border border mb-2 p-2 d-flex justify-content-center ">
+                    <h5 class="m-0">Orders</h5>
+                </div>
+                <div id="list-example"
+                    class="list-group rounded border border d-flex justify-content-center align-items-center"
+                    style="height: 500px;">
+                    <p class="m-0 list-group-item border-0" style="color: gray;"> You dont have any orders.
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="home-text">
-            <h2>Welcome to <a href="admin_about_us.php">TAKOZAKI!</a>
-                Experience the deliciousness of Takoyaki, a popular Japanese street food from Osaka. These crispy,
-                octopus-filled balls
-                are topped with savory sauce, mayo, bonito flakes, and seaweed. Enjoy a taste of Japan with every bite!
-            </h2>
-
-            </h2>
-        </div>
     </div>
 
-    <div class="product">
-        <div class="titles">
-            <h4><i class="bx bxs-hot"></i>Top Products</h4>
-            <a href="admin_about_us.php">
-                <h5>More ></h5>
-            </a>
-        </div>
-        <div class="item"><img src="images\10.png" alt=""></div>
-        <div class="item"><img src="images\mt4.png" alt=""></div>
-        <div class="item"><img src="images\r3.png" alt=""></div>
-        <div class="item"><img src="images\mt1.png" alt=""></div>
-    </div>
+    <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0" class="scrollspy-example p-3 mt-4 ps-5"
+        tabindex="0" style="background-color: ;">
+        <div id="products">
+            <div class="d-flex align-items-center justify-content-center mt-3 mb-2">
+                <h1 class="fw-bold"> Products</h1>
+            </div>
+            <div class="d-flex align-items-center justify-content-start flex-wrap gap-3">
+                <div class="card rounded shadow p-0 border-0" style="width: 24%; transition: .3s;">
+                    <a href="" style="text-decoration: none; color: black;">
+                        <img src="..\images\14.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Product Name</h5>
+                            <p class="card-text">₱ 00.00</p>
+                        </div>
+                    </a>
 
-    <footer class="footer">
-        <div><img src="images\Logo.jpg" alt=""></div>
-        <div class="footer_content">
-            <p><i class='bx bxs-home p-2'></i>GST Town Center Rosario, Cavite</p>
-            <p><i class='bx bxs-phone p-2'></i>Phone: +0936-600-9206</p>
-            <p>&copy; 2024 Takozaki. All rights reserved.</p>
+                </div>
+            </div>
         </div>
-    </footer>
+
+
+    </div>
+    <?php
+    include ('footer.php');
+    ?>
 
 
 
