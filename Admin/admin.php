@@ -49,109 +49,10 @@ include ('header.php');
 
     <!-- modal body  -->
 
-    <!-- managing promo  -->
-    <div class="modal fade" id="promo_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Promo</h1>
-                    <button class="btn btn-outline-secondary ms-2">Add Promo</button>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex flex-wrap gap-2">
-                    <div class="card position-relative" style="width: 14rem;">
-                        <div class="w-100 position-absolute">
-                            <div class=" p-2 d-flex justify-content-end gap-1">
-                                <button class="btn btn-light p-0 px-2">
-                                    <p class="m-0">Edit details</p>
-                                </button>
-                                <button class=" btn btn-danger p-0 px-2 shadow-md" style="">
-                                    <p class="m-0 mb-1">x</p>
-                                </button>
-                            </div>
-                        </div>
-                        <img src="..\images\promo1.png" class="card-img-top" alt="...">
-                        <div class="card-body d-flex justify-content-center p-0 pt-1">
-                            <h5 class="card-title">Promo Title</h5>
-                        </div>
-                    </div>
-                    <div class="card position-relative" style="width: 14rem;">
-                        <div class="w-100 position-absolute">
-                            <div class=" p-2 d-flex justify-content-end gap-1">
-                                <button class="btn btn-light p-0 px-2">
-                                    <p class="m-0">Edit details</p>
-                                </button>
-                                <button class=" btn btn-danger p-0 px-2 shadow-md" style="">
-                                    <p class="m-0 mb-1">x</p>
-                                </button>
-                            </div>
-                        </div>
-                        <img src="..\images\promo1.png" class="card-img-top" alt="...">
-                        <div class="card-body d-flex justify-content-center p-0 pt-1">
-                            <h5 class="card-title">Promo Title</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-outline-danger">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- adding product  -->
-    <div class="modal fade" id="add_product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body d-flex flex-wrap gap-2">
 
-                    <div class="w-100">
-                        <input class="w-100 py-2 px-3 ps-2 rounded border-1" type="text" placeholder="Product Name"
-                            name="username" required>
-                    </div>
-                    <div class="w-100">
-                        <input class="w-100 py-2 px-3 ps-2 rounded border-1" type="number" placeholder="Product Price"
-                            name="price" required>
-                    </div>
-                    <h5 class="m-0 mt-1">Product Thumbnail</h5>
-                    <div class="input-group">
-                        <input type="file" class="form-control btn-outline-secondary" id="inputGroupFile04"
-                            aria-describedby="inputGroupFileAddon04" aria-label="Upload">
-                    </div>
-                    <h5 class="m-0 mt-1">Variation Details</h5>
-                    <div class="w-100">
-                        <input class="w-100 py-2 px-3 ps-2 rounded border-1" type="text"
-                            placeholder="Variation eg. Size" name="variation" required>
-                    </div>
+    <?php include ('admin_modal.php') ?>
 
-                    <div class="row w-100 m-0 p-0 d-flex justify-content-between px-2">
-                        <div class="col-md-7 p-0">
-                            <input class="w-100 py-2 px-3 ps-2 rounded border-1" type="text"
-                                placeholder="Variation Name eg. Small/Medium/Large" name="variation_name" required>
-                        </div>
-                        <div class="col-md-4 p-0">
-                            <input class="w-100 py-2 px-3 ps-2 rounded border-1" type="number"
-                                placeholder="Variation Price" name="variation_price" required>
-                        </div>
-                    </div>
-
-
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-outline-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <?php
-    include ('admin_nav.php');
-    ?>
+    <?php include ('admin_nav.php'); ?>
     <div class="main_body">
 
         <div class="row w-100 px-5 mt-5 mb-2 d-flex align-items-start justify-content-center gap-5 "
@@ -241,34 +142,41 @@ include ('header.php');
                     </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-start flex-wrap gap-3 mt-5 mx-5">
-                    <div class="card rounded shadow p-0 border-0" style="width: 24%; transition: .3s;">
-                        <button class="btn btn-light position-absolute mt-2 me-2" style="right: 0;">Edit
-                            Product</button>
-                        <a href="" style="text-decoration: none; color: black;">
-                            <img src="..\images\14.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Product Name</h5>
-                                <p class="card-text">₱ 00.00</p>
-                            </div>
-                        </a>
+                    <?php
+                    $products = mysqli_query($conn, "SELECT * FROM product_table");
 
-                    </div>
+                    if (mysqli_num_rows($products) == 0) {
+                        echo '<p>No items available.</p>';
+                    } else {
+                        while ($product = mysqli_fetch_assoc($products)) {
+                            $product_id = $product['product_id'];
+                            ?>
+                            <div class="card rounded shadow p-0 border-0" style="width: 24%; transition: .3s;">
+                                <button class="btn btn-light border border-2 position-absolute mt-2 me-2" style="right: 0;">Edit
+                                    Product</button>
+                                <a href="admin_product_preview.php?product_id= <?php echo $product['product_id'] ?>"
+                                    style="text-decoration: none; color: black;">
+                                    <img src="..\product-images\<?php echo $product['image_file'] ?>" class="card-img-top"
+                                        alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title fw-bold"><?php echo $product['name']; ?></h5>
+                                        <p class="card-text">₱ <?php echo $product['price'] ?></p>
+                                    </div>
+                                </a>
+                            </div>
+                            <?php
+                        }
+                    }
+                    ?>
                 </div>
+
             </div>
 
 
         </div>
     </div>
 
-
-    <?php
-    include ('footer.php');
-    ?>
-
-
-
-
-
+    <?php include ('footer.php'); ?>
 </body>
 
 </html>

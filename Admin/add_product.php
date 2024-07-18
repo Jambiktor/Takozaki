@@ -1,6 +1,6 @@
 <?php
 // Include database connection
-include('connection.php');
+include ('..\connection.php');
 
 if (isset($_POST['submit'])) {
     // Get product data
@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
     }
 
     // Insert product into products table
-    $stmt = $conn->prepare("INSERT INTO products (product_name, price, image_file) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO product_table (name, price, image_file) VALUES (?, ?, ?)");
     $stmt->bind_param("sds", $product_name, $product_price, $product_image);
     $stmt->execute();
     $product_id = $stmt->insert_id;
@@ -29,7 +29,7 @@ if (isset($_POST['submit'])) {
                 $variant_image = uploadImage($_FILES["image_file$i"], 'product-images/variant_image');
             }
 
-            $stmt = $conn->prepare("INSERT INTO variants (product_id, name, image_file) VALUES (?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO variation_table (product_id, name, image_file) VALUES (?, ?, ?)");
             $stmt->bind_param("iss", $product_id, $variant_name, $variant_image);
             $stmt->execute();
             $stmt->close();
@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
         $add_on_name = mysqli_real_escape_string($conn, $_POST["Add-on$i"]);
         $add_on_price = mysqli_real_escape_string($conn, $_POST["Add-on-price$i"]);
         if (!empty($add_on_name) && !empty($add_on_price)) {
-            $stmt = $conn->prepare("INSERT INTO add_on (product_id, name, price) VALUES (?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO add_on_table (product_id, name, price) VALUES (?, ?, ?)");
             $stmt->bind_param("isd", $product_id, $add_on_name, $add_on_price);
             $stmt->execute();
             $stmt->close();
@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
         $name = mysqli_real_escape_string($conn, $_POST["option$i"]);
         $price = mysqli_real_escape_string($conn, $_POST["option_price$i"]);
         if (!empty($name) && !empty($price)) {
-            $stmt = $conn->prepare("INSERT INTO `option` (product_id, name, price) VALUES (?, ?, ?)");
+            $stmt = $conn->prepare("INSERT INTO option_table (product_id, name, price) VALUES (?, ?, ?)");
             $stmt->bind_param("isd", $product_id, $name, $price);
             $stmt->execute();
             $stmt->close();
@@ -63,11 +63,12 @@ if (isset($_POST['submit'])) {
     // Redirect or display success message
     echo "<script>
           alert('Product added successfully.');
-          window.location = 'admin_product.php';
+          window.location = 'admin.php';
           </script>";
 }
 
-function uploadImage($file, $folder) {
+function uploadImage($file, $folder)
+{
     $file_name = $file['name'];
     $file_size = $file['size'];
     $tmpname = $file["tmp_name"];
@@ -78,17 +79,17 @@ function uploadImage($file, $folder) {
 
     if (!in_array($imageExtension, $validImageExtension)) {
         echo "<script>alert('Invalid image extension.');
-        window.location='admin_product.php';
+        window.location='admin.php';
         </script>";
         exit();
     } elseif ($file_size > 2000000) {
         echo "<script>alert('Image size is too large.');
-        window.location='admin_product.php';
+        window.location='admin.php';
         </script>";
         exit();
     } else {
         $newImageName = uniqid() . '.' . $imageExtension;
-        $uploadPath = $folder . '/' . $newImageName;
+        $uploadPath = '../' . $folder . '/' . $newImageName;
 
         if (!file_exists($folder)) {
             mkdir($folder, 0777, true);
@@ -98,7 +99,7 @@ function uploadImage($file, $folder) {
             return $newImageName;
         } else {
             echo "<script>alert('Failed to upload new image.');
-            window.location='admin_product.php';
+            window.location='admin.php';
             </script>";
             exit();
         }
