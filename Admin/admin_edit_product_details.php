@@ -1,5 +1,5 @@
 <?php
-include("connection.php");
+include ("../connection.php");
 
 if (isset($_POST['editproduct'])) {
     $product_id = $_POST['product_id'];
@@ -18,32 +18,31 @@ if (isset($_POST['editproduct'])) {
             $tmpname = $_FILES["image_file"]["tmp_name"];
 
             $validImageExtension = ['jpg', 'jpeg', 'png'];
-            $imageExtension = explode('.', $file_name);
-            $imageExtension = strtolower(end($imageExtension));
+            $imageExtension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
             if (!in_array($imageExtension, $validImageExtension)) {
                 echo "<script>alert('Invalid image extension.');
-                window.location='admin_product.php';
+                window.location='admin_product_preview.php?product_id=$product_id';
                 </script>";
                 exit();
             } elseif ($file_size > 2000000) {
                 echo "<script>alert('Image size is too large.');
-                window.location='admin_product.php';
+                window.location='admin_product_preview.php?product_id=$product_id';
                 </script>";
                 exit();
             } else {
                 $newImageName = uniqid() . '.' . $imageExtension;
-                $uploadPath = 'product-images/' . $newImageName;
+                $uploadPath = '../product-images/' . $newImageName;
 
-                if (!file_exists('product-images')) {
-                    mkdir('product-images', 0777, true);
+                if (!file_exists('../product-images')) {
+                    mkdir('../product-images', 0777, true);
                 }
 
                 if (move_uploaded_file($tmpname, $uploadPath)) {
                     $product_image = $newImageName;
 
                     // Retrieve current image file path
-                    $current_image_sql = "SELECT image_file FROM products WHERE product_id=?";
+                    $current_image_sql = "SELECT image_file FROM product_table WHERE product_id=?";
                     if ($current_stmt = $conn->prepare($current_image_sql)) {
                         $current_stmt->bind_param("i", $product_id);
                         $current_stmt->execute();
@@ -52,13 +51,13 @@ if (isset($_POST['editproduct'])) {
                         $current_stmt->close();
 
                         // Remove the previous image file from the directory
-                        if ($current_image_file && file_exists('product-images/' . $current_image_file)) {
-                            unlink('product-images/' . $current_image_file);
+                        if ($current_image_file && file_exists('../product-images/' . $current_image_file)) {
+                            unlink('../product-images/' . $current_image_file);
                         }
                     }
                 } else {
                     echo "<script>alert('Failed to upload new image.');
-                    window.location='admin_product.php';
+                    window.location='admin_product_preview.php?product_id=$product_id';
                     </script>";
                     exit();
                 }
@@ -67,12 +66,12 @@ if (isset($_POST['editproduct'])) {
 
         // Update product details in the products table
         if ($product_image) {
-            $sql = "UPDATE products SET product_name=?, price=?, image_file=? WHERE product_id=?";
+            $sql = "UPDATE product_table SET name=?, price=?, image_file=? WHERE product_id=?";
             if ($stmt = $conn->prepare($sql)) {
                 $stmt->bind_param("sdsi", $product_name, $price, $product_image, $product_id);
             }
         } else {
-            $sql = "UPDATE products SET product_name=?, price=? WHERE product_id=?";
+            $sql = "UPDATE product_table SET name=?, price=? WHERE product_id=?";
             if ($stmt = $conn->prepare($sql)) {
                 $stmt->bind_param("sdi", $product_name, $price, $product_id);
             }
@@ -81,13 +80,13 @@ if (isset($_POST['editproduct'])) {
         if ($stmt->execute()) {
             echo "<script>
                   alert('Product details updated successfully.');
-                  window.location = 'admin_product.php';
+                  window.location = 'admin_product_preview.php?product_id=$product_id';
                   </script>";
             exit();
         } else {
             echo "<script>
                   alert('Error: Could not update product details.');
-                  window.location = 'admin_product.php';
+                  window.location = 'admin_product_preview.php?product_id=$product_id';
                   </script>";
             exit();
         }
@@ -95,7 +94,7 @@ if (isset($_POST['editproduct'])) {
     } else {
         echo "<script>
               alert('Error: Product Name and Price cannot be empty.');
-              window.location = 'admin_product.php';
+              window.location = 'admin_product_preview.php?product_id=$product_id';
               </script>";
         exit();
     }

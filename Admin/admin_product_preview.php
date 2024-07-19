@@ -114,7 +114,8 @@ include ('header.php');
 <body>
     <div class="background_image"></div>
 
-    <?php include ('admin_nav.php'); ?>
+    <?php include ('admin_nav.php');
+    ?>
 
     <?php
     if (isset($_GET['product_id'])) {
@@ -122,6 +123,8 @@ include ('header.php');
 
         $products = mysqli_query($conn, "SELECT * FROM product_table WHERE product_id = $product_id");
         $product = mysqli_fetch_assoc($products);
+
+        include ('admin_product_preview_modal.php');
 
         if ($product) {
             ?>
@@ -159,7 +162,7 @@ include ('header.php');
                     while ($product = mysqli_fetch_assoc($products)) {
                         ?>
                         <div class="col-md-7 ">
-                            <div class="container shadow-sm rounded text-light d-flex justify-content-between p-0 ps-2 mb-2"
+                            <div class="container shadow-sm rounded text-light d-flex justify-content-between p-0 px-3 mb-2"
                                 style="background-color: #333333">
                                 <div class="rounded d-flex justify-content-start py-3 align-items-end gap-3">
                                     <div>
@@ -172,8 +175,10 @@ include ('header.php');
                                         <input type="hidden" name="base_price" value="<?php echo $product['price'] ?>">
                                     </div>
                                 </div>
-                                <div class="m-0 d-flex justify-content-center align-items-center pe-2">
-                                    <button class="btn btn-light">Edit product details</button>
+                                <div class="m-0 d-flex justify-content-center align-items-center ">
+                                    <button class="btn btn-light" id="edit_button" type="button" data-bs-toggle="modal"
+                                        data-bs-target="#editproduct">Edit product
+                                    </button>
                                 </div>
                             </div>
 

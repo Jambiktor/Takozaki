@@ -85,7 +85,7 @@ include ('header.php');
                     <div class="logo_toggler" style="color: white; font-size: 25px;"><i class='bx bx-menu'></i></div>
                 </button>
 
-                <a href=""><img src="..\images\MainLogo.png" alt="" style="width: 40px;"></a>
+                <a href="admin.php"><img src="..\images\MainLogo.png" alt="" style="width: 40px;"></a>
             </div>
 
             <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
