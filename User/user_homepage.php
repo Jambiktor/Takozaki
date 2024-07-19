@@ -1,7 +1,7 @@
 <?php
-include('connection.php');
-include('sessioncheck.php');
-include('header.php');
+include('../connection.php');
+include('../LogIn/session.php');
+include('../header.php');
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ include('header.php');
 
 <body>
     <?php
-    $sql = "SELECT * FROM usertable WHERE uname='" . $_SESSION['uname'] . "'";
+    $sql = "SELECT * FROM usertable WHERE username='" . $_SESSION['username'] . "'";
     $result = $conn->query($sql);
 
     while ($row = $result->fetch_assoc()) {
@@ -55,7 +55,7 @@ include('header.php');
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="user">
                             <div class="user_name">
-                                <p> <?php echo $_SESSION['uname'] ?> </p>
+                                <p> <?php echo $_SESSION['username'] ?> </p>
                             </div>
                             <div class="user_photo">
                                 <img src="profile_picture/<?php echo $row['image_file'] ?>" alt="">
