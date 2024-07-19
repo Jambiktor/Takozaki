@@ -70,7 +70,7 @@ include ('header.php');
                             scraps, pickled ginger, and green onions, every bite is a burst of flavor. Pair your savory
                             treat with our refreshing selection of drinks, including classic Japanese sodas, a variety
                             of teas, and handcrafted beverages. Join us for a mouthwatering culinary adventure!</p>
-                        <a class="orderbtn btn btn-light px-5 py-3 w-100" href="#products"
+                        <a class="order btn btn btn-light px-5 py-3 w-100" href="#products"
                             style="text-decoration: none;transition: .3s;">
                             <h2 class="m-0" style="">Order Now</h2>
                         </a>
@@ -169,7 +169,6 @@ include ('header.php');
 
 
     </div>
-
 
     <?php
     include ('footer.php');

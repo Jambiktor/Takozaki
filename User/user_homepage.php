@@ -1,7 +1,7 @@
 <?php
-include('connection.php');
-include('sessioncheck.php');
-include('header.php');
+include ('..\connection.php');
+include ('..\LogIn\session.php');
+include ('header.php');
 ?>
 
 <!DOCTYPE html>
@@ -11,156 +11,165 @@ include('header.php');
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css\user.css" />
+    <!-- <link rel="stylesheet" href="css\user.css" /> -->
+    <style>
+        body {
+            background-color: lightgray !important;
+            position: relative;
+            overflow-x: hidden;
+        }
 
+        .background_image {
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("../images/backgroundpattern.jpg");
+            background-repeat: repeat;
+            opacity: .02;
+        }
+
+        .promo_details {
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .promo_details:hover {
+            opacity: 1;
+        }
+
+        .card:hover,
+        .orderbtn:hover {
+            transform: scale(1.01);
+        }
+
+        .banner {
+            /* background-position: center; */
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, rgb(26, 26, 26, .95) 30%, rgb(38, 38, 38, .80) 55%, rgb(51, 51, 51, .40));
+        }
+    </style>
 </head>
 
 <body>
-    <?php
-    $sql = "SELECT * FROM usertable WHERE uname='" . $_SESSION['uname'] . "'";
-    $result = $conn->query($sql);
+    <div class="background_image"></div>
 
-    while ($row = $result->fetch_assoc()) {
-    ?>
-    <nav class="nav_bar">
+    <?php include ('user_nav.php'); ?>
 
-        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
-            aria-controls="offcanvasTop">
-            <div class="logo_toggler"><i class='bx bx-menu'></i><img src="images\blacklogo.jpeg" alt=""></div>
-        </button>
-
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-            <div class="offcanvas-header">
-                <h5 id="offcanvasTopLabel">Takozaki<img src="images\blacklogo.jpeg" alt=""></h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div class="tab">
-                    <a href="user_homepage.php">Home</a>
-                    <a href="user_about_us.php">About</a>
-                    <a href="user_product.php">Products</a>
-                    <a href="user_pendings_order.php">Orders</a>
-                    <a href="user_cart _pickup.php">Cart</a>
-                    <a href="user_contact.php">Contact us</a>
+    <div class="main_body pb-5">
+        <div class="">
+            <div class="overflow-hidden position-relative" style="height: 42.5rem;">
+                <div class="banner position-absolute d-flex align-items-center">
+                    <div class="" style="width: 500px; margin-left: 5vw;">
+                        <h1 class="fw-bolder" style="color: white;">TAKOZAKI-TAKOYAKI</h1>
+                        <p style="color: white;">Welcome to Takozaki, where we bring the authentic taste of
+                            Osaka to your plate with
+                            our perfectly cooked, golden-brown takoyaki balls. Filled with fresh octopus, tempura
+                            scraps, pickled ginger, and green onions, every bite is a burst of flavor. Pair your savory
+                            treat with our refreshing selection of drinks, including classic Japanese sodas, a variety
+                            of teas, and handcrafted beverages. Join us for a mouthwatering culinary adventure!</p>
+                        <a class="order btn btn btn-light px-5 py-3 w-100" href="#products"
+                            style="text-decoration: none;transition: .3s;">
+                            <h2 class="m-0" style="">Order Now</h2>
+                        </a>
+                    </div>
                 </div>
+                <img src="../images/main background.jpg" alt=""
+                    style="height: 100%; width: 100%; object-fit: cover; object-position: center;">
             </div>
         </div>
 
-        <div class="right_body">
 
-            <div class="user_tab">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="user">
-                            <div class="user_name">
-                                <p> <?php echo $_SESSION['uname'] ?> </p>
-                            </div>
-                            <div class="user_photo">
-                                <img src="profile_picture/<?php echo $row['image_file'] ?>" alt="">
-                            </div>
+        <div class=" d-flex align-items-center justify-content-start position-relative py-5 my-5"
+            style="background-color: ">
+            <div id="carouselExampleInterval" class="carousel slide rounded overflow-hidden shadow"
+                data-bs-ride="carousel" style="width: 500px ; margin-left: 150px;">
+                <div class="carousel-inner position-relative" style="height: 100%;">
+
+                    <div class="carousel-item active" data-bs-interval="3000">
+                        <div class="promo_details position-absolute d-flex align-items-end justify-content-center pb-5"
+                            style="height: 100%; width: 100%; background-image: linear-gradient(to top, rgba(38, 38, 38, 0.70) 55%, rgba(51, 51, 51, 0.40));">
+                            <a href="#" style="text-decoration: none; color: white;">
+                                <h5>Click to view details.</h5>
+                            </a>
                         </div>
-                    </button>
-                    <ul id="dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <div class="dropdown_container">
-                            <li>
-                                <form action="user_profile.php" method="post"><button>Profile</button></form>
-                            </li>
-                            <li>
-                                <form action="logout.php" method="post"><button type="submit"
-                                        name="logout">Logout</button></form>
-                            </li>
+                        <img src="..\images\promo1.png" class="d-block w-100" alt="..." style="width: 100%;">
+                    </div>
+
+                    <div class="carousel-item" data-bs-interval="3000">
+                        <div class="promo_details position-absolute d-flex align-items-end justify-content-center pb-4"
+                            style="height: 100%; width: 100%; background-image: linear-gradient(to top, rgba(38, 38, 38, 0.70) 55%, rgba(51, 51, 51, 0.40));">
+                            <a href="#" style="text-decoration: none; color: white;">Click to view details.</a>
                         </div>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <?php } ?>
-
-
-
-    <div class="intro">
-        <div class="bg_box">
-            <div class="intro_img">
-                <img src="images/bg1.jpg" alt="">
-            </div>
-            <h1 class="welcome">WELCOME TO TAKOZAKI!</h1>
-        </div>
-    </div>
-
-    <div class="main_body">
-
-        <div class="promo">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                        class="active" aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner" data-bs-interval="3000">
-                    <div class="carousel-item active">
-                        <img src="images\11.png" class="d-block w-100" alt="...">
+                        <img src="..\images\promo2.png" class="d-block w-100" alt="..." style="width: 100%;">
                     </div>
+
                     <div class="carousel-item" data-bs-interval="3000">
-                        <img src="images\bg2.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item" data-bs-interval="3000">
-                        <img src="images\14.png" class="d-block w-100" alt="...">
+                        <div class="promo_details position-absolute d-flex align-items-end justify-content-center pb-4"
+                            style="height: 100%; width: 100%; background-image: linear-gradient(to top, rgba(38, 38, 38, 0.70) 55%, rgba(51, 51, 51, 0.40));">
+                            <a href="#" style="text-decoration: none; color: white;">Click to view details.</a>
+                        </div>
+                        <img src="..\images\promo3.png" class="d-block w-100" alt="..." style="width: 100%;">
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
                     data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
                     data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+            <div class="position-absolute shadow w-100 text-end d-flex align-items-end justify-content-center flex-column "
+                style="background-image: linear-gradient(to left, rgb(26, 26, 26, .95) 30%, rgb(38, 38, 38, .95) 55%, rgb(51, 51, 51, .80)); z-index: -1; padding-right: 150px; height: 300px; color: white;">
+                <h1>Hot deals and Promos</h1>
+                <p class="" style="width: 600px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla
+                    excepturi nam iusto
+                    officiis esse ea
+                    ut labore amet culpa eos sunt quas ex, delectus pariatur.</p>
+            </div>
         </div>
-        <div class="home-text">
-            <h2>Welcome to <a href="user_about_us.php">TAKOZAKI!</a>
-                Experience the deliciousness of Takoyaki, a popular Japanese street food from Osaka. These crispy,
-                octopus-filled balls
-                are topped with savory sauce, mayo, bonito flakes, and seaweed. Enjoy a taste of Japan with every bite!
-            </h2>
 
-            </h2>
+        <!-- <div class="col-md-7 rounded p-2 shadow-sm" style="background-color: white; width:; height:;">
+
+                <div class="rounded border border mb-2 p-2 d-flex justify-content-center ">
+                    <h5 class="m-0">Order</h5>
+                </div>
+                <div id="list-example"
+                    class="list-group rounded border border d-flex justify-content-center align-items-center"
+                    style="height: 30vw;">
+                    <p class="m-0 list-group-item border-0" style="color: gray;"> No orders. Click <a class=""
+                            href="#products" style="text-decoration: none;">here</a> to view our products.
+                    </p>
+                </div>
+            </div> -->
+    </div>
+
+    <div id="products" class="scrollspy-example mt-4 pb-5">
+        <div class="d-flex align-items-center justify-content-center mb-5"
+            style="background-color: #333333; color: white;">
+            <h1 class="m-0 my-3"> Products</h1>
+        </div>
+        <div>
+            <div class="d-flex align-items-center justify-content-start flex-wrap gap-3 px-5">
+                <div class="card rounded shadow p-0 border-0" style="width: 24%; transition: .3s;">
+                    <a href="" style="text-decoration: none; color: black;">
+                        <img src="..\images\14.png" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Product Name</h5>
+                            <p class="card-text">₱ 00.00</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="product">
-        <div class="titles">
-            <h4><i class="bx bxs-hot"></i>Top Products</h4>
-            <a href="user_about_us.php">
-                <h5>More ></h5>
-            </a>
-        </div>
-        <div class="item"><img src="images\10.png" alt=""></div>
-        <div class="item"><img src="images\mt4.png" alt=""></div>
-        <div class="item"><img src="images\r3.png" alt=""></div>
-        <div class="item"><img src="images\mt1.png" alt=""></div>
-    </div>
-
-    <footer class="footer">
-        <div><img src="images\Logo.jpg" alt=""></div>
-        <div class="footer_content">
-            <p><i class='bx bxs-home p-2'></i>GST Town Center Rosario, Cavite</p>
-            <p><i class='bx bxs-phone p-2'></i>Phone: +0936-600-9206</p>
-            <p>&copy; 2024 Takozaki. All rights reserved.</p>
-        </div>
-    </footer>
-
-
-
+    <?php include ('footer.php'); ?>
 
 
 </body>
