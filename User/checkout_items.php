@@ -1,7 +1,7 @@
 <?php
-include('connection.php');
-include('sessioncheck.php');
-include('header.php');
+include ('..\connection.php');
+include ('..\LogIn\session.php');
+include ('header.php');
 ?>
 
 <!DOCTYPE html>
@@ -10,11 +10,52 @@ include('header.php');
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Check Out</title>
     <link rel="stylesheet" href="css\checkout_item9.css" />
+    <style>
+        body {
+            background-color: lightgray !important;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .background_image {
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("../images/backgroundpattern.jpg");
+            background-repeat: repeat;
+            opacity: .02;
+        }
+
+        .promo_details {
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .promo_details:hover {
+            opacity: 1;
+        }
+
+        .card:hover,
+        .orderbtn:hover {
+            transform: scale(1.01);
+        }
+
+        .banner {
+            /* background-position: center; */
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, rgb(26, 26, 26, .95) 30%, rgb(38, 38, 38, .80) 55%, rgb(51, 51, 51, .40));
+        }
+    </style>
 </head>
 
 <body>
+    <div class="background_image"></div>
+
+    <?php include ('user_nav.php'); ?>
     <!-- Modal -->
     <div class="modal fade" id="place_order" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -65,62 +106,6 @@ include('header.php');
         </div>
     </div>
 
-    <nav class="nav_bar">
-
-        <button id="offcanvas_focus" class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
-            aria-controls="offcanvasTop">
-            <div class="logo_toggler"><i class='bx bx-menu'></i><img src="images\Logo.jpg" alt=""></div>
-        </button>
-
-        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-            <div class="offcanvas-header">
-                <h5 id="offcanvasTopLabel">Takozaki<img src="images\Logo.jpg" alt=""></h5>
-                <button id="offcanvas_focus" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                    aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div class="tab">
-                    <a href="admin.php">Home</a>
-                    <a href="admin_product.php">Products</a>
-                    <a href="admin_order.php">Orders</a>
-                    <a href="user_table.php">Users</a>
-                    <a href="admin_report.php">Report</a>
-                    <a href="contact.php">Contact us</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="right_body">
-
-            <div class="user_tab">
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="user">
-                            <div class="user_name">
-                                <p> <?php echo $_SESSION['uname'] ?> </p>
-                            </div>
-                            <div class="user_photo">
-                            </div>
-                        </div>
-                    </button>
-                    <ul id="dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <div class="dropdown_container">
-                            <li>
-                                <form action="profile.php" method="post"><button>Profile</button></form>
-                            </li>
-                            <li>
-                                <form action="logout.php" method="post"><button type="submit"
-                                        name="logout">Logout</button></form>
-                            </li>
-                        </div>
-
-                    </ul>
-
-                </div>
-            </div>
-        </div>
-    </nav>
     <div class="check_out_box rounded p-2 my-3">
 
         <div class="delivery_details rounded p-3 mb-2">

@@ -1,6 +1,6 @@
 <?php
-include ('connection.php');
-include ('sessioncheck.php');
+include ('..\connection.php');
+include ('..\LogIn\session.php');
 include ('header.php');
 ?>
 
@@ -10,20 +10,54 @@ include ('header.php');
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Orders</title>
     <link rel="stylesheet" href="css\user_products.css" />
     <style>
         body {
-            background-color: lightgray;
+            background-color: lightgray !important;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .background_image {
+            z-index: -1;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: url("../images/backgroundpattern.jpg");
+            background-repeat: repeat;
+            opacity: .02;
+        }
+
+        .promo_details {
+            opacity: 0;
+            transition: 0.5s;
+        }
+
+        .promo_details:hover {
+            opacity: 1;
+        }
+
+        .card:hover,
+        .orderbtn:hover {
+            transform: scale(1.01);
+        }
+
+        .banner {
+            /* background-position: center; */
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(to right, rgb(26, 26, 26, .95) 30%, rgb(38, 38, 38, .80) 55%, rgb(51, 51, 51, .40));
         }
     </style>
 </head>
 
 <body>
-    <?php
-    $sql = "SELECT * FROM usertable WHERE uname='" . $_SESSION['uname'] . "'";
-    $result = $conn->query($sql);
+    <div class="background_image"></div>
 
+    <?php include ('user_nav.php'); ?>
+
+    <?php
     while ($row = $result->fetch_assoc()) {
         ?>
         <!-- Modal -->
@@ -76,64 +110,6 @@ include ('header.php');
             </div>
         </div>
 
-        <nav class="nav_bar">
-
-            <button id="offcanvas_focus" class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop"
-                aria-controls="offcanvasTop">
-                <div class="logo_toggler"><i class='bx bx-menu'></i><img src="images\blacklogo.jpeg" alt=""></div>
-            </button>
-
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasTop" aria-labelledby="offcanvasTopLabel">
-                <div class="offcanvas-header">
-                    <h5 id="offcanvasTopLabel">Takozaki<img src="images\blacklogo.jpeg" alt=""></h5>
-                    <button id="offcanvas_focus" type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                        aria-label="Close"></button>
-                </div>
-                <div class="offcanvas-body">
-                    <div class="tab">
-                        <a href="user_homepage.php">Home</a>
-                        <a href="user_about_us.php">About</a>
-                        <a href="user_product.php">Products</a>
-                        <a href="user_pendings_order.php">Orders</a>
-                        <a href="user_cart _pickup.php">Cart</a>
-                        <a href="user_contact.php">Contact us</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="right_body">
-
-                <div class="user_tab">
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <div class="user">
-                                <div class="user_name">
-                                    <p> <?php echo $_SESSION['uname'] ?> </p>
-                                </div>
-                                <div class="user_photo">
-                                    <img src="profile_picture/<?php echo $row['image_file'] ?>" alt="">
-                                </div>
-                            </div>
-                        </button>
-                        <ul id="dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <div class="dropdown_container">
-                                <li>
-                                    <form action="user_profile.php" method="post"><button>Profile</button></form>
-                                </li>
-                                <li>
-                                    <form action="logout.php" method="post"><button type="submit"
-                                            name="logout">Logout</button></form>
-                                </li>
-                            </div>
-
-                        </ul>
-
-
-                    </div>
-                </div>
-            </div>
-        </nav>
     <?php } ?>
 
 

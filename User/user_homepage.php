@@ -155,22 +155,36 @@ include ('header.php');
             <h1 class="m-0 my-3"> Products</h1>
         </div>
         <div>
-            <div class="d-flex align-items-center justify-content-start flex-wrap gap-3 px-5">
-                <div class="card rounded shadow p-0 border-0" style="width: 24%; transition: .3s;">
-                    <a href="" style="text-decoration: none; color: black;">
-                        <img src="..\images\14.png" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">Product Name</h5>
-                            <p class="card-text">₱ 00.00</p>
+            <div class="d-flex align-items-center justify-content-start flex-wrap gap-3 mt-5 mx-5">
+                <?php
+                $products = mysqli_query($conn, "SELECT * FROM product_table");
+
+                if (mysqli_num_rows($products) == 0) {
+                    echo '<p>No items available.</p>';
+                } else {
+                    while ($product = mysqli_fetch_assoc($products)) {
+                        $product_id = $product['product_id'];
+                        ?>
+                        <div class="card rounded shadow p-0 border-0" style="width: 24%; transition: .3s;">
+                            <a href="user_product_preview.php?product_id= <?php echo $product['product_id'] ?>"
+                                style="text-decoration: none; color: black;">
+                                <img src="..\product-images\<?php echo $product['image_file'] ?>" class="card-img-top"
+                                    alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold"><?php echo $product['name']; ?></h5>
+                                    <p class="card-text">₱ <?php echo $product['price'] ?></p>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
+                        <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </div>
 
     <?php include ('footer.php'); ?>
-
 
 </body>
 

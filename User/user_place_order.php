@@ -1,14 +1,14 @@
 <?php
-include ("connection.php");
+include ("../connection.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get form data
-    $order_ids = $_POST['order_id'];
+    $order_item_ids = $_POST['order_item_id'];
     $payment_option = $_POST['payment_option'];
     $total = $_POST['total'];
 
     // Validate form data
-    if (empty($order_ids) || empty($payment_option)) {
+    if (empty($order_item_ids) || empty($payment_option)) {
         echo "<script>
         alert('Invalid input');
         window.location = 'user_cart.php';
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $order_number = mt_rand(1000000, 9999999);
 
     // Prepare the database update statement
-    $stmt = $conn->prepare("UPDATE order_table SET status = ?, order_time = ?, payment_option = ?, order_number = ?, total = ? WHERE order_id = ? AND status = 'cart'");
+    $stmt = $conn->prepare("UPDATE order_table SET status = ?, order_time = ?, payment_option = ?, order_number = ?, total = ? WHERE order_item_id = ? AND status = 'cart'");
 
     if (!$stmt) {
         echo "<script>
@@ -33,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Bind parameters and execute for each order
-    foreach ($order_ids as $order_id) {
-        $stmt->bind_param("sssidi", $status, $current_time, $payment_option, $order_number, $total, $order_id);
+    foreach ($order_item_ids as $order_item_id) {
+        $stmt->bind_param("sssidi", $status, $current_time, $payment_option, $order_number, $total, $order_item_id);
         $stmt->execute();
     }
 
@@ -42,12 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->close();
 
     echo "<script>
-    alert('Orders updated successfully');
-    window.location = 'user_pending_order.php';
+    alert('Order placed successfully');
+    window.location = 'user_order.php';
     </script>";
     exit();
 } else {
-    header("Location: user_products.php");
+    header("Location: user_homepage.php");
     exit();
 }
 ?>

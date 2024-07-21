@@ -85,7 +85,7 @@ include ('header.php');
                     <div class="logo_toggler" style="color: white; font-size: 25px;"><i class='bx bx-menu'></i></div>
                 </button>
 
-                <a href="admin.php"><img src="..\images\MainLogo.png" alt="" style="width: 40px;"></a>
+                <a href="user_homepage.php"><img src="..\images\MainLogo.png" alt="" style="width: 40px;"></a>
             </div>
 
             <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
@@ -97,7 +97,7 @@ include ('header.php');
                 </div>
                 <div class="offcanvas-body">
                     <div class="d-flex justify-content-end flex-column gap-1">
-                        <a href="admin.php">Home</a>
+                        <a href="user_homepage">Home</a>
                         <a href="admin_about_us.php">About</a>
                         <a href="admin_product.php">Products</a>
                         <a href="admin_pendings_order.php">Orders</a>
